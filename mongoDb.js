@@ -28,5 +28,5 @@ async function connectToMongoDB() {
     throw error; // Rejeitar a promise para que os chamadores possam lidar com o erro
   }
 }
-
+connectToMongoDB();
 module.exports = connectToMongoDB;

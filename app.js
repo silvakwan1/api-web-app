@@ -1,6 +1,5 @@
 const express = require("express");
 const router = require("./router/router");
-const connectToMongoDB = require("./mongoDb");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 
@@ -14,6 +13,6 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(router);
 
-connectToMongoDB();
+require("./mongoDb");
 
 app.listen(PORT, () => console.log(`servidor rodando na porta ${PORT}`));
