@@ -3,20 +3,20 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const connectToMongoDB = require("./mongoDb");
 
+const app = express();
+const PORT = process.env.PORT || 3100;
+connectToMongoDB();
+
 // const routerPost = require("./router/routerPost");
 // const routerPut = require("./router/routerPut");
 const routerGet = require("./router/routerGet");
 
 require("dotenv").config();
-connectToMongoDB();
 
-const PORT = process.env.PORT || 3100;
-
-const app = express();
-
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
+app.use(bodyParser.json());
+app.use(postRouter);
+
 // app.use(routerPost);
 // app.use(routerPut);
 app.use(routerGet);
