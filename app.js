@@ -1,11 +1,10 @@
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const connectToMongoDB = require("./mongoDb");
 
 const app = express();
 const PORT = process.env.PORT || 3100;
-connectToMongoDB();
+require("./mongoDb");
 
 const routerPost = require("./router/routerPost");
 const routerPut = require("./router/routerPut");
