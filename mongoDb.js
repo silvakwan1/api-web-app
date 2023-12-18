@@ -3,30 +3,14 @@ require("dotenv").config();
 
 const url = process.env.MONGODB_URI;
 
-async function connectToMongoDB() {
-  try {
-    const db = await mongoose.connect(url, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+mongoose.set("strictQuery", true);
 
-    console.log("MongoDB conectado com sucesso!");
+main().catch((err) => console.log(err));
 
-    // Manipular eventos de desconexão e erro
-    mongoose.connection.on("disconnected", () => {
-      console.log("Desconectado do MongoDB");
-    });
+async function main() {
+  await mongoose.connect(url);
 
-    mongoose.connection.on("error", (error) => {
-      console.error("Erro na conexão com o MongoDB:", error);
-    });
-
-    // Retornar a instância do MongoDB (opcional)
-    return db;
-  } catch (error) {
-    console.error("Erro ao conectar ao MongoDB:", error);
-    throw error; // Rejeitar a promise para que os chamadores possam lidar com o erro
-  }
+  console.log("Conectado com sucesso!");
 }
 
-module.exports = connectToMongoDB;
+module.exports = main;
