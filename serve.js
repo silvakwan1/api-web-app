@@ -8,9 +8,9 @@ const routerGet = require("./router/routerGet");
 const routerPut = require("./router/routerPut");
 
 require("dotenv").config();
-connectToMongoDB();
+// connectToMongoDB();
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 const app = express();
 
