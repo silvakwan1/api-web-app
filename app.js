@@ -10,7 +10,7 @@ const routerPut = require("./router/routerPut");
 require("dotenv").config();
 connectToMongoDB();
 
-const PORT = process.env.PORT || 3100;
+const PORT = 3000;
 
 const app = express();
 
