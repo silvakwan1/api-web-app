@@ -7,7 +7,6 @@ routerUpload.post("/upload", upload.single("imagem"), async (req, res) => {
   const { originalname, buffer, mimetype } = req.file;
 
   try {
-    // Salvar a imagem no MongoDB
     const imagem = new Imagem({
       nome: originalname,
       conteudo: buffer,
@@ -23,21 +22,18 @@ routerUpload.post("/upload", upload.single("imagem"), async (req, res) => {
   }
 });
 
-// Rota para visualizar imagem
 routerUpload.get("/visualizar/:id", async (req, res) => {
   const id = req.params.id;
 
   try {
-    // Buscar a imagem no MongoDB pelo ID
     const imagem = await Imagem.findById(id);
 
     if (!imagem) {
       return res.status(404).send("Imagem não encontrada.");
     }
 
-    // Configurar o cabeçalho para indicar o tipo de conteúdo da resposta
     res.set("Content-Type", imagem.contentType);
-    // Enviar o conteúdo da imagem como resposta
+
     res.send(imagem.conteudo);
   } catch (error) {
     console.error(error);
@@ -45,10 +41,8 @@ routerUpload.get("/visualizar/:id", async (req, res) => {
   }
 });
 
-// Rota para obter todas as imagens
 routerUpload.get("/imagens", async (req, res) => {
   try {
-    // Buscar todas as imagens no MongoDB
     const imagens = await Imagem.find({}, "nome _id");
 
     res.json(imagens);
@@ -58,13 +52,9 @@ routerUpload.get("/imagens", async (req, res) => {
   }
 });
 
-// Rota para obter 5 imagens aleatórias
 routerUpload.get("/imagens-aleatorias", async (req, res) => {
   try {
-    // Buscar 5 imagens aleatórias no MongoDB
-    const imagens = await Imagem.aggregate([
-      { $sample: { size: 5 } }, // Seleciona aleatoriamente 5 documentos
-    ]);
+    const imagens = await Imagem.aggregate([{ $sample: { size: 10 } }]);
 
     res.json(imagens);
   } catch (error) {

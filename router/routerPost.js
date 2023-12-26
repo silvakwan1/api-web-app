@@ -16,18 +16,13 @@ class CreateUser {
   }
 }
 routerPost.post("/auth/register", async (req, res) => {
-  const { name, email, password, confirmpassword } = req.body;
+  const { name, email, password } = req.body;
 
   if (!name) return res.status(422).json({ msg: "name e obrigatorio" });
 
   if (!email) return res.status(422).json({ msg: "email e obrigatorio" });
 
   if (!password) return res.status(422).json({ msg: "password e obrigatorio" });
-
-  if (confirmpassword !== password)
-    return res
-      .status(422)
-      .json({ msg: "password é confirmpassword incompativel" });
 
   const userExists = await User.findOne({ email: email });
 
