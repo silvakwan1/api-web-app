@@ -54,7 +54,15 @@ routerUpload.get("/imagens", async (req, res) => {
 
 routerUpload.get("/imagens-aleatorias", async (req, res) => {
   try {
-    const imagens = await Image.aggregate([{ $sample: { size: 10 } }]);
+    const imagens = await Image.aggregate([
+      { $sample: { size: 10 } },
+      {
+        $project: {
+          _id: 1,
+          nome: 1,
+        },
+      },
+    ]);
 
     res.json(imagens);
   } catch (error) {
