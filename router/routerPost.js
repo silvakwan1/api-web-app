@@ -16,13 +16,18 @@ class CreateUser {
   }
 }
 routerPost.post("/auth/register", async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, confirmpassword } = req.body;
 
   if (!name) return res.status(422).json({ msg: "name e obrigatorio" });
 
   if (!email) return res.status(422).json({ msg: "email e obrigatorio" });
 
   if (!password) return res.status(422).json({ msg: "password e obrigatorio" });
+
+  if (confirmpassword !== password)
+    return res
+      .status(422)
+      .json({ msg: "password é confirmpassword incompativel" });
 
   const userExists = await User.findOne({ email: email });
 
@@ -35,13 +40,6 @@ routerPost.post("/auth/register", async (req, res) => {
 
   const user = new User(createUser);
   user.balance = 0;
-
-  res.header("Access-Control-Allow-Origin", "http://localhost:5173");
-  res.header(
-    "Access-Control-Allow-Methods",
-    "GET, POST, OPTIONS, PUT, PATCH, DELETE"
-  );
-  res.header("Access-Control-Allow-Headers", "Content-Type");
 
   try {
     await user.save();
