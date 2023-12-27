@@ -11,6 +11,7 @@ const routerPost = require("./router/routerPost");
 const routerPut = require("./router/routerPut");
 const routerGet = require("./router/routerGet");
 const routerUpload = require("./router/routerUpload");
+const routerAdmin = require("./router/routerAdmin");
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -19,5 +20,6 @@ app.use(routerPost);
 app.use(routerPut);
 app.use(routerGet);
 app.use(routerUpload);
+app.use(routerAdmin);
 
 app.listen(PORT, () => console.log(`servidor rodando na porta ${PORT}`));
