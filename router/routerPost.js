@@ -36,6 +36,13 @@ routerPost.post("/auth/register", async (req, res) => {
   const user = new User(createUser);
   user.balance = 0;
 
+  res.header("Access-Control-Allow-Origin", "http://localhost:5173");
+  res.header(
+    "Access-Control-Allow-Methods",
+    "GET, POST, OPTIONS, PUT, PATCH, DELETE"
+  );
+  res.header("Access-Control-Allow-Headers", "Content-Type");
+
   try {
     await user.save();
 
