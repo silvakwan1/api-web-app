@@ -8,7 +8,7 @@ routerUpload.post("/upload", upload.single("image"), async (req, res) => {
 
   try {
     const image = new Image({
-      nome: originalname,
+      name: originalname,
       conteudo: buffer,
       contentType: mimetype,
     });
