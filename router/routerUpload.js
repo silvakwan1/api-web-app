@@ -59,7 +59,7 @@ routerUpload.get("/imagens-aleatorias", async (req, res) => {
       {
         $project: {
           _id: 1,
-          nome: 1,
+          name: 1,
         },
       },
     ]);
