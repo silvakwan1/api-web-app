@@ -100,6 +100,9 @@ routerPut.put("/auth/update/balance", checkToken, async (req, res) => {
     return res.status(422).json({ msg: "Valor de saldo inválido" });
   }
 
+  if (value > 0.008)
+    return res.status(422).json({ msg: "Valor de saldo inválido" });
+
   try {
     const user = await User.findById(req.user.id);
 
