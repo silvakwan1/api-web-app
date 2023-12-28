@@ -7,20 +7,13 @@ routerAdmin.get("/admin-user-img", async (req, res) => {
   try {
     const imagens = await Image.find();
     const images = imagens.length;
-    const user = await User.aggregate([
-      {
-        $project: {
-          _id: 1,
-          name: 1,
-          balance: 1,
-        },
-      },
-    ]);
+
+    const user = await User.find({}, { _id: 1, name: 1, balance: 1 });
 
     res.status(200).json({ images, user });
   } catch (error) {
-    console.error(error);
-    res.status(500).send("Erro ao buscar no banco");
+    console.error("Erro ao buscar no banco", error);
+    res.status(500).json({ error: "Erro ao buscar no banco" });
   }
 });
 
